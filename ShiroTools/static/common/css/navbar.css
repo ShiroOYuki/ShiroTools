@@ -1,0 +1,75 @@
+.navbar {
+    display: flex;
+    position: absolute;
+    height: 50px;
+    width: 200px;
+    min-width: 200px;
+    top: 10px;
+    left: 0px;
+    border-radius: 0px 15px 15px 0px;
+    background-color: #1f1f1f;
+    align-items: center;
+    padding-left: 10px;
+    gap: 10px;
+    overflow: hidden;
+    transition: all 0.2s ease-out;
+}
+
+.navbar * {
+    user-select: none;
+}
+
+.webmark {
+    display: flex;
+    min-width: 160px;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2em;
+    z-index: 10001;
+}
+
+.nav-icon {
+    display: flex;
+    height: 35px;
+    width: 35px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #CCCCCC;
+    min-width: 100px;
+}
+
+.navbar a:hover {
+    color: #FFFFFF;
+}
+
+/* color bar */
+
+.color-bar {
+    width: 5px;
+    min-width: 5px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: white;
+    user-select: none;
+    z-index: 10000;
+}
+
+.color-bar.little {
+    min-width: 3px;
+    width: 3px;
+    height: 25px;
+}
+
+.color-bar.right {
+    position: absolute;
+    right: 15px;
+    outline: 20px solid #1f1f1f;
+}
+
+.color-bar.hover-to-aqua:hover {
+    background-color: #51A8DD;
+}
+
+/* end color bar */
