@@ -1,10 +1,114 @@
 {% extends "template.html" %}
 
 {% block import_css %}
+<link rel="stylesheet" href="/static/dashboard/css/dashboard.css">
 {% endblock %}
 
 {% block import_js %}
+<script src="/static/dashboard/js/dashboard.js"></script>
 {% endblock %}
 
-{% block body %} 
+{% block body %}
+<div class="box recent expanded">
+    <div class="title">
+        <p class="small-title">
+            最近使用
+        </p>
+        <hr class="title-splitline">
+    </div>
+    <div class="recent-items">
+        <div>
+            <div class="recent-item">
+                <p>Recent A</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent B</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent C</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent A</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent B</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent C</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent A</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent B</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent C</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent A</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent B</p>
+            </div>
+        </div>
+        <div>
+            <div class="recent-item">
+                <p>Recent C</p>
+            </div>
+        </div>
+    </div>
+    <i class="bi bi-chevron-left recent-btn"></i>
+</div>
+<div class="col-box expanded">
+    <div class="box box-container announcement">
+        <div class="title">
+            <p class="small-title">
+                公告
+            </p>
+            <hr class="title-splitline">
+        </div>
+        <div class="box-content">
+            <p>
+                這裡甚麼都沒有~~~
+            </p>
+        </div>
+        <i class="bi bi-chevron-left announcement-btn"></i>
+    </div>
+    
+    <div class="box box-container log">
+        <div class="title">
+            <p class="small-title">
+                更新日誌
+            </p>
+            <hr class="title-splitline">
+        </div>
+        <div class="box-content">
+            <p>
+                2023/08/22 - 製作首頁、Sleep
+            </p>
+        </div>
+        <i class="bi bi-chevron-left log-btn"></i>
+    </div>
+</div>
 {% endblock %}

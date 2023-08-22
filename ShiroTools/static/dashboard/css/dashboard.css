@@ -1,0 +1,156 @@
+.page-container {
+    flex-direction: row;
+}
+
+.box {
+    opacity: 0.9;
+}
+
+/* recent */
+
+.recent {
+    display: flex;
+    flex-direction: column;
+    background-color: #222222;
+    flex: 1;
+    height: 100%;
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
+    border-radius: 25px;
+    padding: 25px;
+    gap: 10px;
+    transition: left 1s ease;
+}
+
+.recent.expanded {
+    left: 0px;
+}
+
+.recent.closed {
+    left: -395px;
+}
+
+.recent-btn {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    color: #CCCCCC;
+    transition: rotate 1s ease;
+}
+
+.recent-btn:hover {
+    color: #FFFFFF;
+    
+}
+
+.recent.expanded .recent-btn {
+    rotate: 0deg;
+}
+
+.recent.closed .recent-btn {
+    rotate: 180deg;
+}
+
+.title {
+    position: absolute;
+}
+
+.small-title {
+    font-size: 1.2em;
+    color: white;
+}
+
+.title-splitline {
+    display: flex;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+.recent-items {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: 10px;
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.recent-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    width: 100%;
+    min-height: 50px;
+    justify-content: center;
+    align-self: start;
+}
+
+.recent-items>div:hover {
+    background-color: #333333;
+}
+
+.recent-items>div {
+    border-bottom: 1px solid gray;
+    margin-right: 10px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+/* announcement */
+
+.col-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 10px;
+    left: 0px;
+    width: 100%;
+    min-width: calc(100% - 410px);
+    transition: min-width 1s ease, left 1s ease;
+}
+
+.col-box.full {
+    left: -395px;
+    min-width: calc(100% - 15px);
+}
+
+.box-container {
+    display: flex;
+    flex: 1;
+    min-height: 50%;
+    width: 100%;
+    border-radius: 25px;
+    background-color: #222222;
+    left: 0px;
+    transition: all 1s ease;
+    padding: 25px;
+}
+
+.box-container.closed {
+    left: calc(100% - 5px);
+}
+
+.box-content {
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.announcement-btn, .log-btn {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    color: #CCCCCC;
+    rotate: 180deg;
+    transition: rotate 1s ease;
+}
+
+.announcement-btn:hover, .log-btn:hover {
+    color: #FFFFFF;
+}
+
+.box-container.closed .announcement-btn, .box-container.closed .log-btn {
+    rotate: 0deg;
+}

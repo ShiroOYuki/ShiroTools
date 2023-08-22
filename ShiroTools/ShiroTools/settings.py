@@ -55,7 +55,11 @@ ROOT_URLCONF = 'ShiroTools.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"static","common","html"), os.path.join(BASE_DIR,"static","dashboard","html")],
+        'DIRS': [
+            os.path.join(BASE_DIR,"static","common","html"),
+            os.path.join(BASE_DIR,"static","dashboard","html"),
+            os.path.join(BASE_DIR,"static","sleep","html")
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

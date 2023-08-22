@@ -1,0 +1,28 @@
+.page-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+}
+
+.hours {
+    display: flex;
+    margin-left: 10%;
+    font-size: 10em;
+}
+
+.ms {
+    display: flex;
+    align-items: baseline;
+    margin-right: 10%;
+    gap: 10px;
+}
+
+.minutes {
+    font-size: 10em;
+}
+
+.seconds {
+    bottom: 0px;
+    font-size: 2em;
+}

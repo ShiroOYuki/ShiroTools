@@ -3,17 +3,15 @@ $(document).ready(function(){
     let navbar = $(".navbar");
     
     expand_btn.click(function(){
-        if (navbar.hasClass("closed")) {
-            navbar.removeClass("closed");
-            navbar.animate({ width: '98vw' }, 1000, 'swing').promise().done(function() {
-                navbar.addClass("expanded");
-            }); 
+        navbar.toggleClass("expanded closed");
+        if (navbar.hasClass('closed')) {
+            navbar.find('.nav-items').css('overflow-x', 'hidden');
         }
-        else {
-            navbar.removeClass("expanded");
-            navbar.animate({ width: '200px' }, 1000, 'swing').promise().done(function() {
-                navbar.addClass('closed');
-            }); 
-        }
+    });
+
+    navbar.on('transitionend', function() {
+        if (navbar.hasClass('expanded')) {
+            navbar.find('.nav-items').css('overflow-x', 'auto');
+        } 
     });
 });

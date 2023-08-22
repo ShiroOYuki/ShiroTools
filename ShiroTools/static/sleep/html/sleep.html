@@ -6,25 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'common/css/template.css' %}">
-    <link rel="stylesheet" href="{% static 'common/css/navbar.css' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    {% block import_css %}
-    {% endblock %}
-
-    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'sleep/css/sleep.css' %}">
+    <title>Sleep</title>
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="{% static 'common/js/navbar.js' %}"></script>
     <script src="{% static 'common/js/bg.js' %}"></script>
-    {% block import_js %}
-    {% endblock %}
+    <script src="{% static 'sleep/js/sleep.js' %}"></script>
 </head>
 <body>
     <div class="bg dark"></div>
-    {% include "navbar.html"%}
     <div class="page-container">
-        {% block body %}
-        {% endblock %} 
+        <p class="hours">XX</p>
+        <div class="ms">
+            <p class="minutes">XX</p>
+            <p class="seconds">XX</p>
+        </div>
     </div>
 </body>
 </html>
