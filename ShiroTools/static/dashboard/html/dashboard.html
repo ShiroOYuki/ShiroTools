@@ -17,66 +17,13 @@
         <hr class="title-splitline">
     </div>
     <div class="recent-items">
+        {% for hist in history %}
         <div>
-            <div class="recent-item">
-                <p>Recent A</p>
-            </div>
+            <a class="recent-item" href="{{ hist.1 }}">
+                <p>{{ hist.0 }}</p>
+            </a>
         </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent B</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent C</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent A</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent B</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent C</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent A</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent B</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent C</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent A</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent B</p>
-            </div>
-        </div>
-        <div>
-            <div class="recent-item">
-                <p>Recent C</p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     <i class="bi bi-chevron-left recent-btn"></i>
 </div>
@@ -104,8 +51,9 @@
             <hr class="title-splitline">
         </div>
         <div class="box-content">
-            <p>2023/08/22 - 製作首頁、Sleep</p>
-            <p>2023/08/21 - 開始製作網頁</p>
+            {% for line in logs %}
+            <p>{{ line }}</p>
+            {% endfor %}
         </div>
         <i class="bi bi-chevron-left log-btn"></i>
     </div>

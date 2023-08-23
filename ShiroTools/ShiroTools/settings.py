@@ -58,7 +58,8 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR,"static","common","html"),
             os.path.join(BASE_DIR,"static","dashboard","html"),
-            os.path.join(BASE_DIR,"static","sleep","html")
+            os.path.join(BASE_DIR,"static","sleep","html"),
+            os.path.join(BASE_DIR,"static","redirect")
         ],
         'APP_DIRS': True,
         'OPTIONS': {

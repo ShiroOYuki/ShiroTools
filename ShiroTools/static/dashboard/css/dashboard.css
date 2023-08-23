@@ -87,6 +87,7 @@
     min-height: 50px;
     justify-content: center;
     align-self: start;
+    text-decoration: none;
 }
 
 .recent-items>div:hover {
@@ -136,6 +137,7 @@
 .box-content {
     margin-top: 30px;
     padding: 10px;
+    overflow-y: auto;
 }
 
 .announcement-btn, .log-btn {
