@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('',include('dashboard.urls')),
+    path('', include('dashboard.urls')),
+    path('line_stickers/', include('line_stickers.urls')),
     path('admin/', admin.site.urls)
 ]

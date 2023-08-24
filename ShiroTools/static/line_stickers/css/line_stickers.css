@@ -1,0 +1,135 @@
+.info {
+    max-width: 400px;
+}
+
+.ipt-box {
+    display: flex;
+    align-items: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid gray;
+}
+
+.ipt {
+    background-color: #333333;
+    border-radius: 10px;
+    padding-left: 15px;
+    min-height: 50px;
+    color: #FFFFFF;
+    border: none;
+    font-size: 1.2em;
+    width: 100%;
+    padding-right: 55px;
+}
+
+.ipt-btn {
+    display: flex;
+    position: absolute;
+    right: 15px;
+    min-height: 25px;
+    min-width: 25px;
+    border-radius: 5px;
+    background-color: #00AA90;
+    border: 0px;
+    z-index: 100;
+}
+
+.ipt-btn:hover {
+    background-color: #00d3b3;
+}
+
+.ipt-btn:active {
+    background-color: #005b4d;
+}
+
+.btn-icon {
+    display: flex;
+    position: absolute;
+    padding-left: 3.5px;
+    padding-top: 5px;
+    right: 15px;
+    height: 25px;
+    width: 25px;
+    z-index: 102;
+    user-select: none;
+    pointer-events: none;
+}
+
+.imgs {
+    display: flex;
+    flex: 1;
+    margin-top: 50px;
+    flex-wrap: wrap;
+    align-content: normal;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 10px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    min-width: 200px;
+    max-height: 200px;
+    max-width: 200px;
+    object-fit: contain;
+    background-color: rgba(51, 51, 51, 0.9);
+    border-radius: 25px;
+}
+
+.imgs-container {
+    padding-right: 15px;
+}
+
+.download-icon {
+    position: relative;
+    font-size: 3em;
+}
+
+.download-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    min-height: 200px;
+    min-width: 200px;
+    max-height: 200px;
+    max-width: 200px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
+    opacity: 0;
+    transition: opacity 0.2s linear;
+}
+
+.download-icon-box:hover {
+    opacity: 1;
+}
+
+.img-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-all {
+    display: flex;
+    position: absolute;
+    right: 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: #00AA90;
+    border: 0px;
+    padding: 5px;
+}
+
+.download-all:hover {
+    background-color: #00d3b3;
+}
+
+.download-all:active {
+    background-color: #005b4d;
+}

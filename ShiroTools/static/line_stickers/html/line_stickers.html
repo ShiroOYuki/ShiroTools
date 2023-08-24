@@ -1,0 +1,33 @@
+{% extends "template.html" %}
+
+{% block import_css %}
+<link rel="stylesheet" href="/static/common/css/box.css">
+<link rel="stylesheet" href="/static/line_stickers/css/line_stickers.css">
+{% endblock %}
+
+{% block import_js %}
+<script src="/static/line_stickers/js/line_stickers.js"></script>
+{% endblock %}
+
+{% block body %}
+{% csrf_token %}
+<div class="box col info">
+    <div class="ipt-box">
+        <input class="ipt" type="text" name="sticker_url" id="sticker_url" placeholder="Target URL">
+        <i class="btn-icon bi bi-arrow-return-left"></i>
+        <input class="ipt-btn" id="url-submit" type="button">
+    </div>
+    <div class="info-box">
+
+    </div>
+</div>
+<div class="box col imgs-container">
+    <div class="title">
+        <p class="small-title">
+            預覽
+        </p>
+        <hr class="title-splitline">
+    </div>
+    <div class="imgs"></div>
+</div>
+{% endblock %}
