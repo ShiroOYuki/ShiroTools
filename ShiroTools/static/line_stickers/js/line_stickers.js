@@ -3,6 +3,8 @@ $(document).ready(function(){
     let url_ipt = $("#sticker_url");
 
     submit_btn.click(function(){
+        let dot = $(".dot-box");
+        dot.css("display", "flex");
         let url = url_ipt.val();
         console.log(url);
         if (url.startsWith("https://store.line.me/stickershop/product")) {
@@ -16,6 +18,7 @@ $(document).ready(function(){
                     "csrfmiddlewaretoken": csrf_token
                 },
                 success: function(response) {
+                    dot.css("display", "none");
                     let imgs = response.names;
                     let img_container = $(".imgs");
                     img_container.empty();
