@@ -36,12 +36,11 @@ $(document).ready(function(){
                     }
                     else {
                         let imgs = response.names;
+                        let img_elements = "";
                         for (i=0;i<imgs.length;i++){
-                            img_container.append(
-                                "<a class='img-box' href='" + imgs[i] + "' download><img src='" + imgs[i] + "' class='preview'><div class='download-icon-box'><i class='download-icon bi bi-arrow-down-circle'></i></div></a>"
-                            );
+                            img_elements += "<a class='img-box' href='" + imgs[i] + "' download><img src='" + imgs[i] + "' class='preview'><div class='download-icon-box'><i class='download-icon bi bi-arrow-down-circle'></i></div></a>"
                         }
-    
+                        img_container.append(img_elements);
                         let title = response.title;
                         info_box.append("<p>貼圖名稱：" + title + "</p>")
                         let author = response.author;
