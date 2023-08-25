@@ -1,9 +1,10 @@
 # How to use
 
 1. Open Terminal.
-2. Run `virtualenv .venv` (you are now here: "/ShiroTools").
-3. Activate the virtual environment using `call .venv/Scripts/activate`.
-4. Install the required packages with `pip install -r req.txt`.
-5. Navigate to the directory using `cd ShiroTools` (you are now here: "/ShiroTools/ShiroTools").
-6. Start the server with `manage.py runserver`.
-7. Open "127.0.0.1" in your web browser.
+2. Run `pip install virtualenv`
+3. Run `virtualenv .venv` (you are now here: "/ShiroTools").
+4. Activate the virtual environment using `call .venv/Scripts/activate`.
+5. Install the required packages with `pip install -r req.txt`.
+6. Navigate to the directory using `cd ShiroTools` (you are now here: "/ShiroTools/ShiroTools").
+7. Start the server with `manage.py runserver`.
+8. Open "127.0.0.1" in your web browser.
