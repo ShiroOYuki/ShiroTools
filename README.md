@@ -1,7 +1,7 @@
 # How to use
 
 1. Open Terminal.
-2. Run `virtualenv .venv`.
+2. Run `virtualenv .venv` (you are now here: "/ShiroTools").
 3. Activate the virtual environment using `source .venv/Scripts/activate`.
 4. Install the required packages with `pip install -r req.txt`.
 5. Navigate to the directory using `cd ShiroTools` (you are now here: "/ShiroTools/ShiroTools").
