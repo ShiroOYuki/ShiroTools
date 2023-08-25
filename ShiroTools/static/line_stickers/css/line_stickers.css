@@ -133,3 +133,9 @@
 .download-all:active {
     background-color: #005b4d;
 }
+
+.lineshop-link {
+    position: absolute;
+    bottom: 25px;
+    right: 30px;
+}
