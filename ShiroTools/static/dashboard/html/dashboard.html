@@ -36,9 +36,9 @@
             <hr class="title-splitline">
         </div>
         <div class="box-content">
-            <p>
-                這裡甚麼都沒有~~~
-            </p>
+            {% for line in announcement %}
+            <p>{{ line }}</p>
+            {% endfor %}
         </div>
         <i class="bi bi-chevron-left announcement-btn"></i>
     </div>

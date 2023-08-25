@@ -78,3 +78,7 @@ body {
     background-color: black; /* 滾動條軌道的顏色 */
     border-radius: 4px;
 }
+
+a {
+    user-select: none;
+}
