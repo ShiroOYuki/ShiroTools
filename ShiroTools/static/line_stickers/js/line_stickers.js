@@ -16,6 +16,7 @@ $(document).ready(function(){
         img_container.empty();
         let info_box = $(".info-box");
         info_box.empty();
+        info_box.append("<p>載入中...</p>")
         console.log(url);
         if (url.startsWith("https://store.line.me/stickershop/product")) {
             console.log("True");
@@ -28,6 +29,7 @@ $(document).ready(function(){
                     "csrfmiddlewaretoken": csrf_token
                 },
                 success: function(response) {
+                    info_box.empty();
                     dot_box.css("display", "none");
                     clearInterval(dot_animation);
                     dot.removeClass("bigger");
