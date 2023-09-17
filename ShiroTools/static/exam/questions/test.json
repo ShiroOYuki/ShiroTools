@@ -1,0 +1,20 @@
+{
+    "questions": [
+        {
+            "type": 0,
+            "Q": "print(\"Hello, World\")",
+            "col": [
+                "A",
+                "B",
+                "C",
+                "D"
+            ]
+        },
+        {
+
+        }
+    ],
+    "answers": [
+        0
+    ]
+}

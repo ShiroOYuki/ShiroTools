@@ -9,6 +9,10 @@
     overflow: auto;
 }
 
+.box.clickable:hover {
+    background-color: rgba(64, 64, 64, 0.9);
+}
+
 .page-container {
     flex-direction: row;
 }
@@ -16,11 +20,31 @@
 .col {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    gap: 10px;
+}
+
+
+.col.small {
+    height: 150px;
+    max-height: 150px;
+}
+
+.col.medium {
+    height: 300px;
+    max-height: 300px;
 }
 
 .row {
     display: flex;
     flex-direction: row;
+    flex: 1;
+    gap: 10px;
+}
+
+.row.medium {
+    width: 300px;
+    max-width: 300px;
 }
 
 .title {
@@ -39,4 +63,12 @@
     height: 3px;
     background-color: white;
     border-radius: 2px;
+}
+
+.green {
+    background-color: rgba(9, 108, 0, 0.9);
+}
+
+.green.clickable:hover {
+    background-color: rgba(13, 159, 0, 0.9);
 }
