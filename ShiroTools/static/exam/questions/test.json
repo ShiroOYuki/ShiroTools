@@ -2,7 +2,7 @@
     "questions": [
         {
             "type": 0,
-            "Q": "print(\"Hello, World\")",
+            "Q": "print(\"Hello, Type 0!\")",
             "col": [
                 "A",
                 "B",
@@ -11,10 +11,11 @@
             ]
         },
         {
-
+            "type": 1,
+            "Q": "print(\"Hello, Type 1!\")"
         }
     ],
     "answers": [
-        0
+        0, "Hello"
     ]
 }
