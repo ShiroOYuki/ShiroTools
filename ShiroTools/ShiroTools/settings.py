@@ -60,6 +60,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR,"static","dashboard","html"),
             os.path.join(BASE_DIR,"static","sleep","html"),
             os.path.join(BASE_DIR,"static","line_stickers","html"),
+            os.path.join(BASE_DIR,"static","exam","html"),
             os.path.join(BASE_DIR,"static","redirect")
         ],
         'APP_DIRS': True,
