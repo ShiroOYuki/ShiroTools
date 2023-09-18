@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 import json
 import os
+
 
 def createRecents(request, resp_url, name, url, context={}):
     if request.COOKIES.get("history"):
@@ -29,8 +30,7 @@ def question(request, qid="test"):
         request,
         "question.html",
         context={
-            "questions": questions,
-            "answer": answer
+            "questions": questions
         }
     )
 
@@ -44,5 +44,43 @@ def read_question(qid):
             return questions, answers
     return None, None
 
+def pair_ans(request, qid="test"):
+    questions, answer = read_question(qid)
+    if request.method == "POST":
+        user_ans = request.POST.getlist("ans[]")
+        if answer:
+            correct = 0
+            for i in range(len(answer)):
+                if answer[i] == user_ans[i]:
+                    correct += 1
+            print(correct)
+            print(answer)
+        print(user_ans)
+    
+    resp = HttpResponse(request)
+    resp.set_cookie("user_ans", json.dumps(user_ans))
+    return resp
+
 def ans(request, qid="test"):
-    return render(request, "exam.html")
+    if request.COOKIES.get("user_ans") and request.COOKIES.get("answer"):
+        questions, answer = read_question(qid)
+        user_ans = json.loads(request.COOKIES["user_ans"])
+        data = []
+        tot = len(questions)
+        correct = 0
+        for i in range(len(questions)):
+            data.append({
+                "question": questions[i],
+                "answer": answer[i],
+                "user_ans": user_ans[i]
+            })
+            if answer[i] == user_ans[i]:
+                correct += 1
+        return render(
+            request,
+            "answer.html",
+            context = {
+                "data": data,
+                "score": str(correct) + "/" + str(tot)
+            }
+        )

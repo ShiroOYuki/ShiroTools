@@ -1,0 +1,75 @@
+{% extends "template.html" %}
+{% load str_controller %}
+
+{% block import_css %}
+<link rel="stylesheet" href="/static/common/css/box.css">
+<link rel="stylesheet" href="/static/exam/css/question.css">
+<link rel="stylesheet" href="/static/exam/css/answer.css">
+{% endblock %}
+
+{% block import_js %}
+<script src="/static/exam/js/answer.js"></script>
+{% endblock %}
+
+{% block body %}
+{% csrf_token %}
+<div class="row">
+    <div class="col box question-preview">
+        <div class="title">
+            <p class="small-title">
+                題目列表
+            </p>
+            <hr class="title-splitline">
+        </div>
+        <div class="question-grid">
+            {% for d in data %}
+                {% if d.user_ans == d.answer|toString %}
+                    <div class="question-link correct" data-target="q-{{ forloop.counter }}" id="btn-{{ forloop.counter }}">
+                        <p>{{ forloop.counter }}</p>
+                    </div>
+                {% else %}
+                    <div class="question-link incorrect" data-target="q-{{ forloop.counter }}" id="btn-{{ forloop.counter }}">
+                        <p>{{ forloop.counter }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="score">
+            <p>Score : {{ score }}</p>
+        </div>
+    </div>
+    <div class="col">
+        {% for d in data %}
+            <div class="question-box box" id="q-{{ forloop.counter }}" data-ans="-1">
+            <p class="question">{{ forloop.counter }}. {{ d.question.Q }}</p>
+            <hr class="q-splitline">
+            {% if d.question.type == 0 %}
+                <div class="cols">
+                    {% for col in d.question.cols %}
+                        <label class="radio" data-target="btn-{{ forloop.parentloop.counter }}">
+                        {% if d.user_ans == d.answer and d.user_ans == forloop.counter0|toString %}
+                            <p class="column nohover correct">col</p>
+                        {% elif d.answer == forloop.counter0|toString %}
+                            <p class="column nohover correct">col</p>
+                        {% elif d.user_ans == "" %}
+                            <p class="column nohover incorrect">col</p>
+                        {% elif d.user_ans == forloop.counter0|toString %}
+                            <p class="column nohover incorrect">col</p>
+                        {% else %}
+                            <p class="column nohover">col</p>
+                        {% endif %}
+                        </label>
+                    {% endfor %}
+                </div>
+            {% elif d.question.type == 1 %}
+                {% if d.user_ans == d.answer %}
+                    <p class="ans-ipt correct">{{ d.user_ans }}</p>
+                {% else %}
+                    <p class="ans-ipt incorrect">{{ d.user_ans }} -> {{ d.answer }}</p>
+                {% endif %}
+            {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

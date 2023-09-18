@@ -32,7 +32,7 @@
     </div>
     <div class="col">
         {% for question in questions %}
-            <div class="question-box box" id="q-{{ forloop.counter }}" data-ans="-1">
+            <div class="question-box box" id="q-{{ forloop.counter }}" data-ans="">
                 <p class="question">{{forloop.counter}}. {{ question.Q }}</p>
                 <hr class="q-splitline">
                 {% if question.type == 0 %}

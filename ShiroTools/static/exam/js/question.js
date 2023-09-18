@@ -41,19 +41,21 @@ $(document).ready(function(){
         });
         console.log(ans);
         let csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
-            $.ajax({
-                type: "POST",
-                url: "./ans",
-                data: { 
-                    ans: ans,
-                    "csrfmiddlewaretoken": csrf_token
-                },
-                success: function(response) {
-                    
-                },
-                error: function(error) {
-                    console.log("Error:", error);
-                }
-            });
+        let curr_url = window.location.href;
+        curr_url = curr_url.replace(/\/$/, "");
+        $.ajax({
+            type: "POST",
+            url: curr_url + "/submit",
+            data: { 
+                "ans": ans,
+                "csrfmiddlewaretoken": csrf_token
+            },
+            success: function(response) {
+                window.location.href = curr_url + "/answer";
+            },
+            error: function(error) {
+                console.log("Error:", error);
+            }
+        });
     });
 });

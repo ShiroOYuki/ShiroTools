@@ -33,7 +33,7 @@
     padding-left: 10px;
 }
 
-.column:hover {
+.column:hover:not(.nohover) {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -87,7 +87,8 @@ input[type="radio"]:checked ~ .column {
 }
 
 .ans-ipt {
-    color:black;
+    display: flex;
+    align-items: center;
     background-color: #333333;
     border-radius: 10px;
     padding-left: 15px;
