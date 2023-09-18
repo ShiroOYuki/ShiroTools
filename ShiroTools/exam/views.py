@@ -23,7 +23,7 @@ def createRecents(request, resp_url, name, url, context={}):
 def index(request):
     return createRecents(request, "exam.html", "Shiro's Exam", "/exam")
 
-def question(request, qid="testa"):
+def question(request, qid="test"):
     questions, answer = read_question(qid)
     return render(
         request,
@@ -43,3 +43,6 @@ def read_question(qid):
             answers = jdata["answers"]
             return questions, answers
     return None, None
+
+def ans(request, qid="test"):
+    return render(request, "exam.html")

@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block body %}
+{% csrf_token %}
 <div class="row">
     <div class="col box question-preview">
         <div class="title">
@@ -17,23 +18,28 @@
                 題目列表
             </p>
             <hr class="title-splitline">
-            <div class="question-grid">
-                {% for question in questions %}
-                <div class="question-link" data-target="q-{{ forloop.counter }}" id="btn-{{ forloop.counter }}"></div>
-                {% endfor %}
+        </div>
+        <div class="question-grid">
+            {% for question in questions %}
+            <div class="question-link" data-target="q-{{ forloop.counter }}" id="btn-{{ forloop.counter }}">
+                <p>{{ forloop.counter }}</p>
             </div>
+            {% endfor %}
+        </div>
+        <div class="submit-btn">
+            <p>送出答案</p>
         </div>
     </div>
     <div class="col">
         {% for question in questions %}
-            <div class="box" id="q-{{ forloop.counter }}">
-                <p class="question">{{ question.Q }}</p>
+            <div class="question-box box" id="q-{{ forloop.counter }}" data-ans="-1">
+                <p class="question">{{forloop.counter}}. {{ question.Q }}</p>
                 <hr class="q-splitline">
                 {% if question.type == 0 %}
                 <div class="cols">
                     {% for col in question.cols %}
                     <label class="radio" data-target="btn-{{ forloop.parentloop.counter }}">
-                        <input type="radio" name="q-{{ forloop.parentloop.counter }}">
+                        <input type="radio" value="{{forloop.counter0}}" name="q-{{ forloop.parentloop.counter }}">
                         <p class="column">col</p>
                     </label>
                     {% endfor %}
