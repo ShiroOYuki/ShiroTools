@@ -52,23 +52,6 @@
     rotate: 180deg;
 }
 
-.title {
-    position: absolute;
-}
-
-.small-title {
-    font-size: 1.2em;
-    color: white;
-}
-
-.title-splitline {
-    display: flex;
-    width: 100%;
-    height: 3px;
-    background-color: white;
-    border-radius: 2px;
-}
-
 .recent-items {
     display: flex;
     flex-direction: column;

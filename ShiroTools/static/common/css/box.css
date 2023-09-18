@@ -24,6 +24,10 @@
     gap: 10px;
 }
 
+.col .box {
+    flex-direction: column;
+}
+
 
 .col.small {
     height: 150px;
@@ -40,6 +44,10 @@
     flex-direction: row;
     flex: 1;
     gap: 10px;
+}
+
+.row .box {
+    flex-direction: row;
 }
 
 .row.medium {
@@ -71,4 +79,8 @@
 
 .green.clickable:hover {
     background-color: rgba(13, 159, 0, 0.9);
+}
+
+a {
+    text-decoration: none;
 }

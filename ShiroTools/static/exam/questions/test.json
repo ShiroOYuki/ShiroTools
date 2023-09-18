@@ -3,7 +3,7 @@
         {
             "type": 0,
             "Q": "print(\"Hello, Type 0!\")",
-            "col": [
+            "cols": [
                 "A",
                 "B",
                 "C",

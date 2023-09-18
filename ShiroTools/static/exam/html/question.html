@@ -1,0 +1,30 @@
+{% extends "template.html" %}
+
+{% block import_css %}
+<link rel="stylesheet" href="/static/common/css/box.css">
+<link rel="stylesheet" href="/static/exam/css/question.css">
+{% endblock %}
+
+{% block import_js %}
+
+{% endblock %}
+
+{% block body %}
+<div class="col">
+    {% for question in questions %}
+        <div class="box">
+            <p class="question">{{ question.Q }}</p>
+            <hr class="q-splitline">
+            {% if question.type == 0 %}
+            <div class="cols">
+                {% for col in question.cols %}
+                    <p class="column">col</p>
+                {% endfor %}
+            </div>
+            {% elif question.type == 1 %}
+            <input type="text" name="" id="">
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

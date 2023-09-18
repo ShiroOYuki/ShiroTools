@@ -20,12 +20,19 @@ def createRecents(request, resp_url, name, url, context={}):
     resp.set_cookie("history", json.dumps(hist))
     return resp
 
-def index(request): 
+def index(request):
     return createRecents(request, "exam.html", "Shiro's Exam", "/exam")
 
 def question(request, qid="testa"):
     questions, answer = read_question(qid)
-    return render(request, "exam.html")
+    return render(
+        request,
+        "question.html",
+        context={
+            "questions": questions,
+            "answer": answer
+        }
+    )
 
 def read_question(qid):
     path = f"static/exam/questions/{qid}.json"
