@@ -11,6 +11,16 @@
             ]
         },
         {
+            "type": 0,
+            "Q": "print(\"Hello, Type 0!\")",
+            "cols": [
+                "E",
+                "F",
+                "G",
+                "H"
+            ]
+        },
+        {
             "type": 1,
             "Q": "print(\"Hello, Type 1!\")"
         }

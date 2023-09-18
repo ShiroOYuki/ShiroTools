@@ -74,11 +74,11 @@
 }
 
 .green {
-    background-color: rgba(9, 108, 0, 0.9);
+    background-color: #00AA90;
 }
 
 .green.clickable:hover {
-    background-color: rgba(13, 159, 0, 0.9);
+    background-color: #00c2a5;
 }
 
 a {

@@ -6,25 +6,43 @@
 {% endblock %}
 
 {% block import_js %}
-
+<script src="/static/exam/js/question.js"></script>
 {% endblock %}
 
 {% block body %}
-<div class="col">
-    {% for question in questions %}
-        <div class="box">
-            <p class="question">{{ question.Q }}</p>
-            <hr class="q-splitline">
-            {% if question.type == 0 %}
-            <div class="cols">
-                {% for col in question.cols %}
-                    <p class="column">col</p>
+<div class="row">
+    <div class="col box question-preview">
+        <div class="title">
+            <p class="small-title">
+                題目列表
+            </p>
+            <hr class="title-splitline">
+            <div class="question-grid">
+                {% for question in questions %}
+                <div class="question-link" data-target="q-{{ forloop.counter }}" id="btn-{{ forloop.counter }}"></div>
                 {% endfor %}
             </div>
-            {% elif question.type == 1 %}
-            <input type="text" name="" id="">
-            {% endif %}
         </div>
-    {% endfor %}
+    </div>
+    <div class="col">
+        {% for question in questions %}
+            <div class="box" id="q-{{ forloop.counter }}">
+                <p class="question">{{ question.Q }}</p>
+                <hr class="q-splitline">
+                {% if question.type == 0 %}
+                <div class="cols">
+                    {% for col in question.cols %}
+                    <label class="radio" data-target="btn-{{ forloop.parentloop.counter }}">
+                        <input type="radio" name="q-{{ forloop.parentloop.counter }}">
+                        <p class="column">col</p>
+                    </label>
+                    {% endfor %}
+                </div>
+                {% elif question.type == 1 %}
+                <input class="ans-ipt" type="text" name="q-{{ forloop.counter }}" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}" placeholder="Input answer...">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

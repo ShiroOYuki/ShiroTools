@@ -35,3 +35,55 @@
 .column:hover {
     background-color: rgba(255, 255, 255, 0.5);
 }
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked ~ .column {
+    background-color: #51A8DD;
+    border-color: #51A8DD;
+    font-weight: bold;
+}
+
+.question-preview.box {
+    width: 250px;
+}
+
+.question-grid {
+    display: flex;
+    margin-top: 15px;
+    gap:5px;
+}
+
+.question-link {
+    min-height: 25px;
+    min-width: 25px;
+    background-color: gray;
+    border-radius: 50%;
+}
+
+.question-link:hover {
+    background-color: rgb(157, 157, 157);
+}
+
+.question-link.done {
+    background-color: #51A8DD;
+}
+
+.question-link.done:hover {
+    background-color: #5fbffb;
+}
+
+.ans-ipt {
+    color:black;
+    background-color: #333333;
+    border-radius: 10px;
+    padding-left: 15px;
+    min-height: 50px;
+    color: #FFFFFF;
+    border: none;
+    font-size: 1.2em;
+    width: 100%;
+    padding-right: 55px;
+}
