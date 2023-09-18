@@ -62,7 +62,7 @@ def pair_ans(request, qid="test"):
     return resp
 
 def ans(request, qid="test"):
-    if request.COOKIES.get("user_ans") and request.COOKIES.get("answer"):
+    if request.COOKIES.get("user_ans"):
         questions, answer = read_question(qid)
         user_ans = json.loads(request.COOKIES["user_ans"])
         data = []
