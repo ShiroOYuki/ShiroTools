@@ -64,8 +64,9 @@
             {% elif d.question.type == 1 %}
                 {% if d.user_ans == d.answer %}
                     <p class="ans-ipt correct">{{ d.user_ans }}</p>
-                {% else %}
-                    <p class="ans-ipt incorrect">{{ d.user_ans }} -> {{ d.answer }}</p>
+                {% else %}  
+                    <p class="ans-ipt incorrect">{{ d.user_ans }}</p>
+                    <p class="answer">{{ d.answer }}</p>
                 {% endif %}
             {% endif %}
             </div>

@@ -25,12 +25,13 @@ def index(request):
     return createRecents(request, "exam.html", "Shiro's Exam", "/exam")
 
 def question(request, qid="test"):
-    questions, answer = read_question(qid)
+    res = read_question(qid)
+    questions = res[2], res[3]
     return render(
         request,
         "question.html",
         context={
-            "questions": questions
+            "questions": questions,
         }
     )
 
@@ -41,11 +42,14 @@ def read_question(qid):
             jdata = json.load(jfile)
             questions = jdata["questions"]
             answers = jdata["answers"]
-            return questions, answers
-    return None, None
+            name = jdata["name"]
+            desc = jdata["desc"]
+            return [name, desc, questions, answers]
+    return None
 
 def pair_ans(request, qid="test"):
-    questions, answer = read_question(qid)
+    res = read_question(qid)
+    answer = res[3]
     if request.method == "POST":
         user_ans = request.POST.getlist("ans[]")
         if answer:
@@ -63,7 +67,8 @@ def pair_ans(request, qid="test"):
 
 def ans(request, qid="test"):
     if request.COOKIES.get("user_ans"):
-        questions, answer = read_question(qid)
+        res = read_question(qid)
+        questions, answer = res[2], res[3]
         user_ans = json.loads(request.COOKIES["user_ans"])
         data = []
         tot = len(questions)

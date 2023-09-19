@@ -1,4 +1,6 @@
 {
+    "name": "test",
+    "description": "測試用",
     "questions": [
         {
             "type": 0,
