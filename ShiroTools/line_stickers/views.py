@@ -29,8 +29,12 @@ def line_stickers_mainpage(request):
 def get_stickers(request):
     if request.method == "POST":
         url = request.POST.get("name")
-        stickers = Sticker()
-        res = stickers.download(url)
+        res = Sticker.download(url)
         if res:
             return JsonResponse({"title": res[0], "author": res[1], "names": res[2], "zip": res[3]})
+    if request.method == "GET":
+        pct = Sticker.get_progress_bar()
+        print(pct)
+        return JsonResponse(round(pct), safe=False)
+        
     return JsonResponse({"msg": "Error"})

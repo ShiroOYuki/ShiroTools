@@ -1,0 +1,54 @@
+{% extends "template.html" %}
+
+{% block import_css %}
+<link rel="stylesheet" href="/static/common/css/box.css">
+<link rel="stylesheet" href="/static/exam/css/question.css">
+{% endblock %}
+
+{% block import_js %}
+<script src="/static/exam/js/question.js"></script>
+{% endblock %}
+
+{% block body %}
+{% csrf_token %}
+<div class="row">
+    <div class="col box question-preview">
+        <div class="title">
+            <p class="small-title">
+                題目列表
+            </p>
+            <hr class="title-splitline">
+        </div>
+        <div class="question-grid">
+            {% for question in questions %}
+            <div class="question-link" data-target="q-{{ forloop.counter }}" id="btn-{{ forloop.counter }}">
+                <p>{{ forloop.counter }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="submit-btn">
+            <p>送出答案</p>
+        </div>
+    </div>
+    <div class="col">
+        {% for question in questions %}
+            <div class="question-box box" id="q-{{ forloop.counter }}" data-ans="">
+                <p class="question">{{forloop.counter}}. {{ question.Q }}</p>
+                <hr class="q-splitline">
+                {% if question.type == 0 %}
+                <div class="cols">
+                    {% for col in question.cols %}
+                    <label class="radio" data-target="btn-{{ forloop.parentloop.counter }}">
+                        <input type="radio" value="{{forloop.counter0}}" name="q-{{ forloop.parentloop.counter }}">
+                        <p class="column">col</p>
+                    </label>
+                    {% endfor %}
+                </div>
+                {% elif question.type == 1 %}
+                <input class="ans-ipt" type="text" name="q-{{ forloop.counter }}" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}" placeholder="Input answer...">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

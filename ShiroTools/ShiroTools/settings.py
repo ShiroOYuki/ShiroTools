@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "dashboard",
+    "line_stickers",
+    "exam",
+    "pymusic",
 ]
 
 MIDDLEWARE = [
@@ -60,7 +64,9 @@ TEMPLATES = [
             os.path.join(BASE_DIR,"static","dashboard","html"),
             os.path.join(BASE_DIR,"static","sleep","html"),
             os.path.join(BASE_DIR,"static","line_stickers","html"),
-            os.path.join(BASE_DIR,"static","redirect")
+            os.path.join(BASE_DIR,"static","exam","html"),
+            os.path.join(BASE_DIR,"static","redirect"),
+            os.path.join(BASE_DIR,"static","pymusic","html")
         ],
         'APP_DIRS': True,
         'OPTIONS': {

@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+
+{% block import_css %}
+<link rel="stylesheet" href="/static/common/css/box.css">
+<link rel="stylesheet" href="/static/exam/css/exam.css">
+{% endblock %}
+
+{% block import_js %}
+
+{% endblock %}
+
+{% block body %}
+<div class="col small">
+    <div class="row">
+        <a class="box green clickable" href="create">
+            <div class="title">
+
+            </div>
+            <div class="body">
+
+            </div>
+        </a>
+        <a class="box clickable" href="question/test">
+            <div class="title">
+                <p class="small-title">
+                    Test
+                </p>
+                <hr class="title-splitline">
+            </div>
+            <div class="body">
+                <p>測試用題庫</p>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}

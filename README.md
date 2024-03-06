@@ -8,3 +8,10 @@
 6. Navigate to the directory using `cd ShiroTools` (you are now here: "/ShiroTools/ShiroTools").
 7. Start the server with `manage.py runserver`.
 8. Open "127.0.0.1" in your web browser.
+
+# TODO
+
+1. Marge PyMusic (YT Music Downloader)
+2. Clear Data per Day
+3. Add feature: Exam
+4. Add feature: tree tools

@@ -1,0 +1,119 @@
+.box {
+    background-color: #212121;
+    display: block;
+    height: auto;
+    min-height: fit-content;
+    flex: none;
+}
+
+.col {
+    overflow-y: auto;
+}
+
+.q-splitline {
+    color:gray;
+    border-color: lightgray;
+    height: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.cols {
+    display: flex;
+    flex-direction: column  ;
+    gap: 10px;
+}
+
+.column {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    height: 50px;
+    border: 1px solid gray;
+    padding-left: 10px;
+}
+
+.column:hover:not(.nohover) {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked ~ .column {
+    background-color: #51A8DD;
+    border-color: #51A8DD;
+    font-weight: bold;
+}
+
+.question-preview.box {
+    width: 250px;
+}
+
+.question-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 45px;
+    gap:5px;
+}
+
+.question-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    min-height: 20px;
+    min-width: 20px;
+    background-color: gray;
+    border-radius: 50%;
+    user-select: none;
+}
+
+.question-link p {
+    font-weight: bold;
+}
+
+.question-link:hover {
+    background-color: rgb(157, 157, 157);
+}
+
+.question-link.done {
+    background-color: #51A8DD;
+}
+
+.question-link.done:hover {
+    background-color: #5fbffb;
+}
+
+.ans-ipt {
+    display: flex;
+    align-items: center;
+    background-color: #333333;
+    border-radius: 10px;
+    padding-left: 15px;
+    min-height: 50px;
+    color: #FFFFFF;
+    border: none;
+    font-size: 1.2em;
+    width: 100%;
+    padding-right: 55px;
+}
+
+.submit-btn {
+    display: flex;
+    position: absolute;
+    bottom: 25px;
+    width: 200px;
+    background-color: #00AA90;
+    height: 40px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    user-select: none;
+}
+
+.submit-btn:hover {
+    background-color: #00d3b3;
+}

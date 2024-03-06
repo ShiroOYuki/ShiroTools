@@ -6,7 +6,14 @@ import zipfile
 
 
 class Sticker:
+    def __init__(self):
+        self.progress = 0
+        self.total = 0
+    
+    @classmethod
     def download(self, url):
+        self.progress = 0
+        self.total = 0
         res = requests.get(url)
         soup = BeautifulSoup(res.content, "html.parser")
         stickerBase = soup.find_all("span", "FnPreviewBase")
@@ -26,10 +33,11 @@ class Sticker:
                 return False
 
         cnt = len(stickerBase)
+        self.total = cnt
+        self.progress = 0
         print("Sticker count:", cnt)
         
         stickers_prefix = "stickers-" + str(url.replace("//", "/").split("/")[4])
-
         
         if not os.path.isdir(f"./static/line_stickers/imgs"):
             os.mkdir("static/line_stickers/imgs")
@@ -68,6 +76,8 @@ class Sticker:
                 
                 if base_background_image:
                     base_background_image.save(f"static/line_stickers/imgs/{stickers_prefix}/{i+1}.png")
+                
+                self.progress += 1
                     
                 print("Downloaded:", f"({i+1}/{cnt})")
                 print("Base URL:", base_image_url)
@@ -75,6 +85,7 @@ class Sticker:
             self.zip_folder(f"static/line_stickers/imgs/{stickers_prefix}", f"static/line_stickers/imgs/{stickers_prefix}.zip")
         return [title, author, [f"/static/line_stickers/imgs/{stickers_prefix}/{i+1}.png" for i in range(cnt)], f"/static/line_stickers/imgs/{stickers_prefix}.zip"]
     
+    @classmethod
     def zip_folder(self, folder_path, output_path):
         with zipfile.ZipFile(output_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
             for root, _, files in os.walk(folder_path):
@@ -82,3 +93,7 @@ class Sticker:
                     file_path = os.path.join(root, file)
                     arcname = os.path.relpath(file_path, folder_path)  # 在壓縮文件中的相對路徑
                     zipf.write(file_path, arcname=arcname)
+    
+    @classmethod  
+    def get_progress_bar(self):
+        return self.progress / max(1, self.total) * 100
