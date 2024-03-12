@@ -12,6 +12,7 @@ class Downloader:
         self.installPath = installPath
         self.tempPath = tempPath
         self.batch = batch
+        self.pct = 0
     
     def remove_special_characters(self, text):
         pattern = r'[<>:"/\\|?*]'  # 匹配不允許的符號
@@ -23,6 +24,7 @@ class Downloader:
         downloaded = total_size - bytes_remaining
         pct = round(downloaded / total_size * 100, 1)
         progress_pct = round(downloaded / total_size * 30)
+        self.pct = progress_pct
         print("[" + "="*progress_pct + (">" if progress_pct < 30 else "=") + " "*(30-progress_pct) + "]" + f"({pct}%)", end = "\r" if progress_pct < 30 else "\n")
     
     def check_is_list(self, url=None):
@@ -40,6 +42,7 @@ class Downloader:
     
     def download(self, url=None, sub_folder = "", format="mp3"):
         if url:
+            self.pct = 0
             print("Downloading audio from", url)
             filename = os.path.join(self.tempPath, sub_folder, str(time_ns()) + ".webm")
             print("Getting audio...")
