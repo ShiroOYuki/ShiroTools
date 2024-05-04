@@ -33,18 +33,30 @@
     <div class="col">
         {% for question in questions %}
             <div class="question-box box" id="q-{{ forloop.counter }}" data-ans="">
-                <p class="question">{{forloop.counter}}. {{ question.Q }}</p>
+                <p class="question">{{forloop.counter}}. {{ question.question }}</p>
                 <hr class="q-splitline">
-                {% if question.type == 0 %}
+                {% if question.type == "single_choice" %}
                 <div class="cols">
-                    {% for col in question.cols %}
-                    <label class="radio" data-target="btn-{{ forloop.parentloop.counter }}">
+                    {% for option in question.options %}
+                    <label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
                         <input type="radio" value="{{forloop.counter0}}" name="q-{{ forloop.parentloop.counter }}">
-                        <p class="column">col</p>
+                        <p class="column">{{ option }}</p>
                     </label>
                     {% endfor %}
                 </div>
-                {% elif question.type == 1 %}
+                {% elif question.type == "multiple_choice" %}
+                <div class="cols">
+                    {% for option in question.options %}
+                    <label class="multiple option" data-target="btn-{{ forloop.parentloop.counter }}">
+                        <input type="checkbox" value="{{forloop.counter0}}" name="q-{{ forloop.parentloop.counter }}">
+                        <p class="column">{{ option }}</p>
+                    </label>
+                    {% endfor %}
+                </div>
+                <div class="multiple-choice-hint">
+                    <p>複選題</p>
+                </div>
+                {% elif question.type == "short_answer" %}
                 <input class="ans-ipt" type="text" name="q-{{ forloop.counter }}" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}" placeholder="Input answer...">
                 {% endif %}
             </div>

@@ -1,9 +1,20 @@
 $(document).ready(function(){
-    $(".radio").click(function(){
+    $(".option").click(function(event){
+        event.preventDefault();
         let target = $("#" + $(this).data("target"));
         console.log("#" + $(this).data("target"));
-        target.addClass("done");
-        $(this).closest(".question-box").attr("data-ans", $(this).find("input").val());
+        let radio = $(this).children("input:first")[0];
+        if (radio.checked) {
+            console.log("A");
+            radio.checked = false;
+            target.removeClass("done");
+            $(this).closest(".question-box").attr("data-ans", null);
+        }
+        else {
+            radio.checked = true;
+            target.addClass("done");
+            $(this).closest(".question-box").attr("data-ans", $(this).find("input").val());
+        }
     });
 
     $(".question-link").click(function(){
@@ -58,4 +69,23 @@ $(document).ready(function(){
             }
         });
     });
+
+    $(".multiple.option").click(function() {
+        let target = $("#" + $(this).data("target")); // 快速跳躍題目的按鈕
+        let data = ""
+        $(this).parent().children().map((i, option) => {
+            checkbox = $(option).children("input:first")[0];
+            if (checkbox.checked) {
+                data += $(checkbox).val();
+            }
+        });
+        console.log(data);
+        if (data === "") {
+            $(target).removeClass("done");
+            $(this).closest(".question-box").attr("data-ans", null);
+        }
+        else {
+            $(this).closest(".question-box").attr("data-ans", data);
+        }
+    })
 });

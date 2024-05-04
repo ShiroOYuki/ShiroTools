@@ -3,59 +3,22 @@
     "description": "測試用",
     "questions": [
         {
-            "type": 0,
-            "Q": "print(\"Hello, Type 0!\")",
-            "cols": [
-                "A",
-                "B",
-                "C",
-                "D"
-            ]
+            "type": "short_answer",
+            "question": "What is your name?",
+            "options": [],
+            "answer": "Shiro"
         },
         {
-            "type": 0,
-            "Q": "print(\"Hello, Type 0!\")",
-            "cols": [
-                "E",
-                "F",
-                "G",
-                "H"
-            ]
+            "type": "single_choice",
+            "question": "1 + 1 = ?",
+            "options": ["1", "2", "3", "4"],
+            "answer": "1"
         },
         {
-            "type": 1,
-            "Q": "print(\"Hello, Type 1!\")"
-        },
-        {
-            "type": 1,
-            "Q": "print(\"Hello, Type 1!\")"
-        },
-        {
-            "type": 1,
-            "Q": "print(\"Hello, Type 1!\")"
-        },
-        {
-            "type": 1,
-            "Q": "print(\"Hello, Type 1!\")"
-        },
-        {
-            "type": 1,
-            "Q": "print(\"Hello, Type 1!\")"
-        },
-        {
-            "type": 1,
-            "Q": "print(\"Hello, Type 1!\")"
-        },
-        {
-            "type": 1,
-            "Q": "print(\"Hello, Type 1!\")"
-        },
-        {
-            "type": 1,
-            "Q": "print(\"Hello, Type 1!\")"
+            "type": "multiple_choice",
+            "question": "What are 'three primary colors'",
+            "options": ["red", "green", "blue", "black"],
+            "answer": ["0", "1", "2"]
         }
-    ],
-    "answers": [
-        "0", "1", "Hello", "0", "0", "0", "0", "0", "0", "0"
     ]
 }

@@ -1,32 +1,21 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 import json
 import os
+from libs.utils import createRecents
 
-
-def createRecents(request, resp_url, name, url, context={}):
-    if request.COOKIES.get("history"):
-        hist = json.loads(request.COOKIES["history"])
-    else:
-        hist = []
-    if name != "Dashboard" and (len(hist) == 0 or hist[0][0]) != name:
-        hist.insert(0, [name, url])
-    if len(hist) > 20:
-        hist = hist[:20]
-    context["history"] = hist
-    resp = render(
-        request, 
-        resp_url,
-        context=context
-    )
-    resp.set_cookie("history", json.dumps(hist))
-    return resp
+QuestionsData = list[dict[
+    "type": str,
+    "question": str,
+    "option": list[str],
+    "answer": str | list[str]
+]]
 
 def index(request):
     return createRecents(request, "exam.html", "Shiro's Exam", "/exam")
 
 def question(request, qid="test"):
     res = read_question(qid)
-    questions = res[2], res[3]
+    questions = res["questions"]
     return render(
         request,
         "question.html",
@@ -35,57 +24,109 @@ def question(request, qid="test"):
         }
     )
 
-def read_question(qid):
+def read_question(qid: str) -> QuestionsData:
     path = f"static/exam/questions/{qid}.json"
     if os.path.exists(path):
         with open(path, "r", encoding="utf-8") as jfile:
             jdata = json.load(jfile)
-            questions = jdata["questions"]
-            answers = jdata["answers"]
+            
+            description = jdata["description"]
             name = jdata["name"]
-            desc = jdata["desc"]
-            return [name, desc, questions, answers]
+            questions = jdata["questions"]
+            print(questions)
+            answers = ["".join(list(question["answer"])) for question in questions]
+            
+            return {"name": name, "description": description, "questions": questions, "answers": answers}
     return None
 
-def pair_ans(request, qid="test"):
-    res = read_question(qid)
-    answer = res[3]
+def submit_answers(request, qid="test"):
     if request.method == "POST":
-        user_ans = request.POST.getlist("ans[]")
-        if answer:
-            correct = 0
-            for i in range(len(answer)):
-                if answer[i] == user_ans[i]:
-                    correct += 1
-            print(correct)
-            print(answer)
-        print(user_ans)
-    
-    resp = HttpResponse(request)
-    resp.set_cookie("user_ans", json.dumps(user_ans))
-    return resp
+        print(request.POST)
+        http_res = request.POST.getlist("ans[]")
+        
+        resp = HttpResponse(request)
+        resp.set_cookie("user_ans", json.dumps(http_res))
+        return resp
 
-def ans(request, qid="test"):
+def check_answers(request, qid="test"):
     if request.COOKIES.get("user_ans"):
+        http_res = json.loads(request.COOKIES.get("user_ans"))
         res = read_question(qid)
-        questions, answer = res[2], res[3]
-        user_ans = json.loads(request.COOKIES["user_ans"])
-        data = []
-        tot = len(questions)
-        correct = 0
-        for i in range(len(questions)):
-            data.append({
-                "question": questions[i],
-                "answer": answer[i],
-                "user_ans": user_ans[i]
-            })
-            if answer[i] == user_ans[i]:
-                correct += 1
+        questions_res = res["questions"]
+        answer_res = res["answers"]
+        
+        total = len(questions_res)
+        ret_ans = [False]*total
+        
+        for i, ans in enumerate(http_res):
+            if questions_res[i]["type"] == "short_answer":
+                ret_ans[i] = check_short_answer(ans, answer_res[i])
+            elif questions_res[i]["type"] == "single_choice":
+                ret_ans[i] = check_single_choice(ans, answer_res[i])
+            elif questions_res[i]["type"] == "multiple_choice":
+                ret_ans[i] = check_multiple_choice(ans, answer_res[i])
+        
+        goods = len(list(filter(lambda x: x, ret_ans)))
+        score = f"{goods}/{total}/{round(goods/total*100, 1)}%"
+        
         return render(
             request,
             "answer.html",
             context = {
-                "data": data,
-                "score": str(correct) + "/" + str(tot)
+                "user_ans": http_res,
+                "true_ans": answer_res,
+                "score": score
             }
         )
+
+def check_short_answer(user_ans:str, true_ans:str):
+    return user_ans == true_ans
+
+def check_single_choice(user_ans:str, true_ans:str):
+    return user_ans == true_ans
+
+def check_multiple_choice(user_ans:str, true_ans:str):
+    return "".join(sorted(user_ans)) == "".join(sorted(true_ans))
+
+# def pair_ans(request, qid="test"):
+#     res = read_question(qid)
+#     answer = res.answers
+#     if request.method == "POST":
+#         user_ans = request.POST.getlist("ans[]")
+#         if answer:
+#             correct = 0
+#             for i in range(len(answer)):
+#                 if answer[i] == user_ans[i]:
+#                     correct += 1
+#             print(correct)
+#             print(answer)
+#         print(user_ans)
+    
+#     resp = HttpResponse(request)
+#     resp.set_cookie("user_ans", json.dumps(user_ans))
+#     return resp
+
+# def ans(request, qid="test"):
+#     if request.COOKIES.get("user_ans"):
+#         res = read_question(qid)
+#         questions, answer = res[2], res[3]
+#         user_ans = json.loads(request.COOKIES["user_ans"])
+#         data = []
+#         tot = len(questions)
+#         correct = 0
+#         for i in range(len(questions)):
+#             data.append({
+#                 "question": questions[i],
+#                 "answer": answer[i],
+#                 "user_ans": user_ans[i]
+#             })
+#             if answer[i] == user_ans[i]:
+#                 correct += 1
+#         return render(
+#             request,
+#             "answer.html",
+#             context = {
+#                 "data": data,
+#                 "score": str(correct) + "/" + str(tot)
+#             }
+#         )
