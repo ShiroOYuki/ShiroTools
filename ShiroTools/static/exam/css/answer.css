@@ -7,20 +7,36 @@
     color: lightgray;
 }
 
-.correct {
-    background-color: #00AA90;
+.btn-correct {
+    background-color: rgb(0,170,144);
 }
 
-.incorrect {
+.btn-incorrect {
     background-color: rgb(217, 3, 3);
 }
 
+.correct {
+    background: linear-gradient(90deg, rgba(81,168,221,1) 1%, rgb(0,170,144) 25%);
+}
+
+.incorrect {
+    background: linear-gradient(90deg, rgba(81,168,221,1) 1%, rgb(217, 3, 3) 35%);
+}
+
+.answer-correct {
+    background-color: rgb(0,170,144);
+}
+
+.miss {
+    background: rgb(217, 3, 3);
+}
+
 .question-link.correct:hover {
-    background-color: #00d3b3;
+    background-color: #14f0cf;
 }
 
 .question-link.incorrect:hover {
-    background-color: red;
+    background-color: rgb(255, 68, 68);
 }
 
 .score {

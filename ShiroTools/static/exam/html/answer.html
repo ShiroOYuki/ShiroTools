@@ -14,9 +14,6 @@
 {% block body %}
 {% csrf_token %}
 <div class="row">
-    <p>{{user_ans}}</p>
-    <p>{{true_ans}}</p>
-    <p>{{score}}</p>
     <div class="col box question-preview">
         <div class="title">
             <p class="small-title">
@@ -25,52 +22,125 @@
             <hr class="title-splitline">
         </div>
         <div class="question-grid">
-            {% for d in data %}
-                {% if d.user_ans == d.answer|toString %}
-                    <div class="question-link correct" data-target="q-{{ forloop.counter }}" id="btn-{{ forloop.counter }}">
-                        <p>{{ forloop.counter }}</p>
-                    </div>
-                {% else %}
-                    <div class="question-link incorrect" data-target="q-{{ forloop.counter }}" id="btn-{{ forloop.counter }}">
-                        <p>{{ forloop.counter }}</p>
-                    </div>
-                {% endif %}
+            {% for question in questions %}
+            <div class="question-link btn-correct" data-target="q-{{ forloop.counter }}" id="btn-{{ forloop.counter }}">
+                <p>{{ forloop.counter }}</p>
+            </div>
             {% endfor %}
         </div>
         <div class="score">
-            <p>Score : {{ score }}</p>
+            <p>Score : {{ score.0 }}/{{ score.1 }} ({{ score.2 }}%)</p>
         </div>
     </div>
     <div class="col">
-        {% for d in data %}
+        <script>
+            let parentElement = null;
+            let ans = null;
+            let user_ans = null;
+        </script>
+        {% for question in questions %}
             <div class="question-box box" id="q-{{ forloop.counter }}" data-ans="-1">
-            <p class="question">{{ forloop.counter }}. {{ d.question.Q }}</p>
+            <p class="question">{{ forloop.counter }}. {{ question.question }}</p>
             <hr class="q-splitline">
-            {% if d.question.type == 0 %}
-                <div class="cols">
-                    {% for col in d.question.cols %}
-                        <label class="radio" data-target="btn-{{ forloop.parentloop.counter }}">
-                        {% if d.user_ans == d.answer and d.user_ans == forloop.counter0|toString %}
-                            <p class="column nohover correct">col</p>
-                        {% elif d.answer == forloop.counter0|toString %}
-                            <p class="column nohover correct">col</p>
-                        {% elif d.user_ans == "" %}
-                            <p class="column nohover incorrect">col</p>
-                        {% elif d.user_ans == forloop.counter0|toString %}
-                            <p class="column nohover incorrect">col</p>
-                        {% else %}
-                            <p class="column nohover">col</p>
-                        {% endif %}
-                        </label>
+            <script>
+                ans = JSON.parse("{{true_ans}}".replace(/&#x27;/g, "\""))["{{forloop.counter0}}"];
+                user_ans = JSON.parse("{{user_ans}}".replace(/&#x27;/g, "\""))["{{forloop.counter0}}"];
+            </script>
+            {% if question.type == "single_choice" %}
+                <div class="cols" id="col-{{forloop.counter}}">
+                    <script>
+                        parentElement = $("#col-{{forloop.counter}}");
+                    </script>
+                    {% for option in question.options %}
+                    <script>
+                        if ("{{forloop.counter0}}" === ans) {
+                            $(parentElement).append(
+                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
+                                    <p class="column correct nohover">{{ option }}</p>
+                                </label>`
+                            );
+                        }
+                        else if ("{{forloop.counter0}}" === user_ans || user_ans === ''){
+                            $(parentElement).append(
+                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
+                                    <p class="column incorrect nohover">{{ option }}</p>
+                                </label>`
+                            );
+                            $("#btn-{{forloop.parentloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
+                        }
+                        else {
+                            $(parentElement).append(
+                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
+                                    <p class="column nohover">{{ option }}</p>
+                                </label>`
+                            );
+                        }
+                    </script>
                     {% endfor %}
                 </div>
-            {% elif d.question.type == 1 %}
-                {% if d.user_ans == d.answer %}
-                    <p class="ans-ipt correct">{{ d.user_ans }}</p>
-                {% else %}  
-                    <p class="ans-ipt incorrect">{{ d.user_ans }}</p>
-                    <p class="answer">{{ d.answer }}</p>
-                {% endif %}
+            {% elif question.type == "multiple_choice" %}
+                <div class="cols" id="col-{{forloop.counter}}">
+                    <script>
+                        parentElement = $("#col-{{forloop.counter}}");
+                    </script>
+                    {% for option in question.options %}
+                    <script>
+                        if (ans.includes("{{forloop.counter0}}") && !user_ans.includes("{{forloop.counter0}}")) {
+                            $(parentElement).append(
+                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
+                                    <p class="column miss nohover">{{ option }}</p>
+                                </label>`
+                            );
+                        }
+                        else if (ans.includes("{{forloop.counter0}}")) {
+                            $(parentElement).append(
+                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
+                                    <p class="column correct nohover">{{ option }}</p>
+                                </label>`
+                            );
+                        }
+                        else if (user_ans.includes("{{forloop.counter0}}") || user_ans[0] == ""){
+                            $(parentElement).append(
+                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
+                                    <p class="column incorrect nohover">{{ option }}</p>
+                                </label>`
+                            );
+                            $("#btn-{{forloop.parentloop.counter}}").removeClass("correct").addClass("incorrect");
+                        }
+                        else {
+                            $(parentElement).append(
+                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
+                                    <p class="column nohover">{{ option }}</p>
+                                </label>`
+                            );
+                        }
+                        if (JSON.stringify(user_ans) !== JSON.stringify(ans)) {
+                            $("#btn-{{forloop.parentloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
+                        }
+                    </script>
+                    {% endfor %}
+                </div>
+                <div class="multiple-choice-hint">
+                    <p>複選題</p>
+                </div>
+            {% elif question.type == "short_answer" %}
+                <script>
+                    parentElement = $("#q-{{forloop.counter}}");
+                    if (user_ans === ans) {
+                        $(parentElement).append(
+                            `<p class="ans-ipt correct" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + user_ans + `</p>`
+                        );
+                    }
+                    else {
+                        $(parentElement).append(
+                            `<div class="cols">` + 
+                            `<p class="ans-ipt incorrect" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + user_ans + `</p>` + 
+                            `<p class="ans-ipt answer-correct" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + ans + `</p>` + 
+                            `</div>`
+                        );
+                        $("#btn-{{forloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
+                    }
+                </script>
             {% endif %}
             </div>
         {% endfor %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 import json
 import os
 from libs.utils import createRecents
+from . import utils
 
 QuestionsData = list[dict[
     "type": str,
@@ -34,7 +35,7 @@ def read_question(qid: str) -> QuestionsData:
             name = jdata["name"]
             questions = jdata["questions"]
             print(questions)
-            answers = ["".join(list(question["answer"])) for question in questions]
+            answers = [question["answer"] for question in questions]
             
             return {"name": name, "description": description, "questions": questions, "answers": answers}
     return None
@@ -60,33 +61,27 @@ def check_answers(request, qid="test"):
         
         for i, ans in enumerate(http_res):
             if questions_res[i]["type"] == "short_answer":
-                ret_ans[i] = check_short_answer(ans, answer_res[i])
+                ret_ans[i] = utils.check_short_answer(ans, answer_res[i])
             elif questions_res[i]["type"] == "single_choice":
-                ret_ans[i] = check_single_choice(ans, answer_res[i])
+                ret_ans[i] = utils.check_single_choice(ans, answer_res[i])
             elif questions_res[i]["type"] == "multiple_choice":
-                ret_ans[i] = check_multiple_choice(ans, answer_res[i])
+                ret_ans[i], http_res[i] = utils.check_multiple_choice(ans, answer_res[i])
         
         goods = len(list(filter(lambda x: x, ret_ans)))
-        score = f"{goods}/{total}/{round(goods/total*100, 1)}%"
+        score = [goods, total, round(goods/total*100, 1)]
         
         return render(
             request,
             "answer.html",
             context = {
+                "questions": questions_res,
                 "user_ans": http_res,
                 "true_ans": answer_res,
                 "score": score
             }
         )
 
-def check_short_answer(user_ans:str, true_ans:str):
-    return user_ans == true_ans
 
-def check_single_choice(user_ans:str, true_ans:str):
-    return user_ans == true_ans
-
-def check_multiple_choice(user_ans:str, true_ans:str):
-    return "".join(sorted(user_ans)) == "".join(sorted(true_ans))
 
 # def pair_ans(request, qid="test"):
 #     res = read_question(qid)

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $(".option").click(function(event){
+    $(".option").not(".multiple").click(function(event){
         event.preventDefault();
         let target = $("#" + $(this).data("target"));
         console.log("#" + $(this).data("target"));
@@ -72,19 +72,22 @@ $(document).ready(function(){
 
     $(".multiple.option").click(function() {
         let target = $("#" + $(this).data("target")); // 快速跳躍題目的按鈕
-        let data = ""
+        let data = [];
         $(this).parent().children().map((i, option) => {
             checkbox = $(option).children("input:first")[0];
             if (checkbox.checked) {
-                data += $(checkbox).val();
+                console.log($(checkbox).val());
+                data.push($(checkbox).val());
             }
         });
         console.log(data);
-        if (data === "") {
+        if (data.length === 0) {
+            console.log("Data")
             $(target).removeClass("done");
             $(this).closest(".question-box").attr("data-ans", null);
         }
         else {
+            $(target).addClass("done");
             $(this).closest(".question-box").attr("data-ans", data);
         }
     })

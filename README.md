@@ -6,7 +6,7 @@
 4. Activate the virtual environment using `call .venv/Scripts/activate`.
 5. Install the required packages with `pip install -r req.txt`.
 6. Navigate to the directory using `cd ShiroTools` (you are now here: "/ShiroTools/ShiroTools").
-7. Start the server with `manage.py runserver`.
+7. Start the server with `manage.py runserver` or `manage.py runserver 127.0.0.1:8001`
 8. Open "127.0.0.1" in your web browser.
 
 # TODO
