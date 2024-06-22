@@ -37,111 +37,126 @@
             let parentElement = null;
             let ans = null;
             let user_ans = null;
+            let correct_column;
+            let empty_column;
+            let user_selected_column;
+            let user_ans_box;
+            let ans_box;
         </script>
         {% for question in questions %}
             <div class="question-box box" id="q-{{ forloop.counter }}" data-ans="-1">
-            <p class="question">{{ forloop.counter }}. {{ question.question }}</p>
-            <hr class="q-splitline">
-            <script>
-                ans = JSON.parse("{{true_ans}}".replace(/&#x27;/g, "\""))["{{forloop.counter0}}"];
-                user_ans = JSON.parse("{{user_ans}}".replace(/&#x27;/g, "\""))["{{forloop.counter0}}"];
-            </script>
-            {% if question.type == "single_choice" %}
-                <div class="cols" id="col-{{forloop.counter}}">
-                    <script>
-                        parentElement = $("#col-{{forloop.counter}}");
-                    </script>
-                    {% for option in question.options %}
-                    <script>
-                        if ("{{forloop.counter0}}" === ans) {
-                            $(parentElement).append(
-                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
-                                    <p class="column correct nohover">{{ option }}</p>
-                                </label>`
-                            );
-                        }
-                        else if ("{{forloop.counter0}}" === user_ans || user_ans === ''){
-                            $(parentElement).append(
-                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
-                                    <p class="column incorrect nohover">{{ option }}</p>
-                                </label>`
-                            );
-                            $("#btn-{{forloop.parentloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
-                        }
-                        else {
-                            $(parentElement).append(
-                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
-                                    <p class="column nohover">{{ option }}</p>
-                                </label>`
-                            );
-                        }
-                    </script>
-                    {% endfor %}
-                </div>
-            {% elif question.type == "multiple_choice" %}
-                <div class="cols" id="col-{{forloop.counter}}">
-                    <script>
-                        parentElement = $("#col-{{forloop.counter}}");
-                    </script>
-                    {% for option in question.options %}
-                    <script>
-                        if (ans.includes("{{forloop.counter0}}") && !user_ans.includes("{{forloop.counter0}}")) {
-                            $(parentElement).append(
-                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
-                                    <p class="column miss nohover">{{ option }}</p>
-                                </label>`
-                            );
-                        }
-                        else if (ans.includes("{{forloop.counter0}}")) {
-                            $(parentElement).append(
-                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
-                                    <p class="column correct nohover">{{ option }}</p>
-                                </label>`
-                            );
-                        }
-                        else if (user_ans.includes("{{forloop.counter0}}") || user_ans[0] == ""){
-                            $(parentElement).append(
-                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
-                                    <p class="column incorrect nohover">{{ option }}</p>
-                                </label>`
-                            );
-                            $("#btn-{{forloop.parentloop.counter}}").removeClass("correct").addClass("incorrect");
-                        }
-                        else {
-                            $(parentElement).append(
-                                `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}">
-                                    <p class="column nohover">{{ option }}</p>
-                                </label>`
-                            );
-                        }
-                        if (JSON.stringify(user_ans) !== JSON.stringify(ans)) {
-                            $("#btn-{{forloop.parentloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
-                        }
-                    </script>
-                    {% endfor %}
-                </div>
-                <div class="multiple-choice-hint">
-                    <p>複選題</p>
-                </div>
-            {% elif question.type == "short_answer" %}
+                <p class="question">{{ forloop.counter }}. {{ question.question }}</p>
+                <hr class="q-splitline">
                 <script>
-                    parentElement = $("#q-{{forloop.counter}}");
-                    if (user_ans === ans) {
-                        $(parentElement).append(
-                            `<p class="ans-ipt correct" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + user_ans + `</p>`
-                        );
-                    }
-                    else {
-                        $(parentElement).append(
-                            `<div class="cols">` + 
-                            `<p class="ans-ipt incorrect" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + user_ans + `</p>` + 
-                            `<p class="ans-ipt answer-correct" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + ans + `</p>` + 
-                            `</div>`
-                        );
-                        $("#btn-{{forloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
-                    }
+                    ans = JSON.parse("{{true_ans}}".replace(/&#x27;/g, "\""))["{{forloop.counter0}}"];
+                    user_ans = JSON.parse("{{user_ans}}".replace(/&#x27;/g, "\""))["{{forloop.counter0}}"];
                 </script>
-            {% endif %}
+                {% if question.type == "single_choice" %}
+                    <div class="cols" id="col-{{forloop.counter}}">
+                        <script>
+                            parentElement = $("#col-{{forloop.counter}}");
+                            user_ans_box = $("<div class='user-ans-box'></div>");
+                            ans_box = $("<div class='ans-box'></div>");
+                        </script>
+                        {% for option in question.options %}
+                        <script>
+                            correct_column = `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}"><p class="column correct nohover">{{ option }}</p></label>`;
+                            empty_column = `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}"><p class="column empty nohover">{{ option }}</p></label>`
+                            user_selected_column = `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}"><p class="column user-selected nohover">{{ option }}</p></label>`
+                            
+                            if ("{{forloop.counter0}}" === user_ans) {
+                                $(user_ans_box).append(user_selected_column);
+                            }
+                            else {
+                                $(user_ans_box).append(empty_column);
+                            }
+
+                            if ("{{forloop.counter0}}" === ans) {
+                                $(ans_box).append(correct_column);
+                            }
+                            else {
+                                $(ans_box).append(empty_column);
+                            }
+
+                            if (ans !== user_ans) {
+                                $("#btn-{{forloop.parentloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
+                            }
+                        </script>
+                        {% endfor %}
+                        <script>
+                            $(parentElement).append(user_ans_box);
+                            $(parentElement).append(ans_box);
+                        </script>
+                    </div>
+                {% elif question.type == "multiple_choice" %}
+                    <div class="cols" id="col-{{forloop.counter}}">
+                        <script>
+                            parentElement = $("#col-{{forloop.counter}}");
+                            user_ans_box = $("<div class='user-ans-box'></div>");
+                            ans_box = $("<div class='ans-box'></div>");
+                        </script>
+                        {% for option in question.options %}
+                        <script>
+                            correct_column = `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}"><p class="column correct nohover">{{ option }}</p></label>`;
+                            empty_column = `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}"><p class="column empty nohover">{{ option }}</p></label>`
+                            user_selected_column = `<label class="option" data-target="btn-{{ forloop.parentloop.counter }}"><p class="column user-selected nohover">{{ option }}</p></label>`
+
+                            if (user_ans.includes("{{forloop.counter0}}")) {
+                                $(user_ans_box).append(user_selected_column);
+                            }
+                            else {
+                                $(user_ans_box).append(empty_column);
+                            }
+
+                            if (ans.includes("{{forloop.counter0}}")) {
+                                $(ans_box).append(correct_column);
+                            }
+                            else {
+                                $(ans_box).append(empty_column);
+                            }
+
+                            if (JSON.stringify(user_ans) !== JSON.stringify(ans)) {
+                                $("#btn-{{forloop.parentloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
+                            }
+                        </script>
+                        {% endfor %}
+                        <script>
+                            $(parentElement).append(user_ans_box);
+                            $(parentElement).append(ans_box);
+                        </script>
+                    </div>
+                    <div class="multiple-choice-hint">
+                        <p>複選題</p>
+                    </div>
+                {% elif question.type == "short_answer" %}
+                    <div class="cols" id="col-{{forloop.counter}}">
+                        <script>
+                            parentElement = $("#q-{{forloop.counter}} .cols");
+                            user_ans_box = $("<div class='user-ans-box'></div>");
+                            ans_box = $("<div class='ans-box'></div>");
+                            
+                            if (user_ans === ans) {
+                                $(user_ans_box).append(
+                                    `<p class="ans-ipt" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + user_ans + `</p>`
+                                );
+                                $(ans_box).append(
+                                    `<p class="ans-ipt" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + user_ans + `</p>`
+                                );
+                            }
+                            else {
+                                $(user_ans_box).append(
+                                    `<p class="ans-ipt" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + user_ans + `</p>`
+                                );
+                                $(ans_box).append(
+                                    `<p class="ans-ipt answer-correct" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + ans + `</p>`
+                                );
+                                $("#btn-{{forloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
+                            }
+                            $(parentElement).append(user_ans_box);
+                            $(parentElement).append(ans_box);
+                        </script>
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

@@ -16,11 +16,20 @@
 }
 
 .correct {
-    background: linear-gradient(90deg, rgba(81,168,221,1) 1%, rgb(0,170,144) 25%);
+    /* background: linear-gradient(90deg, rgba(81,168,221,1) 1%, rgb(0,170,144) 25%); */
+    background-color: rgb(0,170,144);
+    border-color: rgb(0,170,144);
 }
 
 .incorrect {
-    background: linear-gradient(90deg, rgba(81,168,221,1) 1%, rgb(217, 3, 3) 35%);
+    /* background: linear-gradient(90deg, rgba(81,168,221,1) 1%, rgb(217, 3, 3) 35%); */
+    background-color: rgb(217, 3, 3);
+    border-color: rgb(217, 3, 3);
+}
+
+.user-selected {
+    background-color: #51A8DD;
+    border-color: #51A8DD;
 }
 
 .answer-correct {
@@ -58,4 +67,27 @@
     margin-left: 15px;
     margin-top: 10px;
     color: lightgray;
+}
+
+.cols {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-ans-box, .ans-box, .ans-ipt {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+}
+
+.ans-box, .answer-correct {
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    padding-left: 10px;
+}
+
+.ans-ipt {
+    align-items: flex-start;
+    justify-content: center;
+    border: 0px;
 }
