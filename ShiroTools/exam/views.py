@@ -32,7 +32,6 @@ def question(request, qid="52dd48f50328411aafca44b83c5bf907"):
 
 def submit_answers(request, qid="52dd48f50328411aafca44b83c5bf907"):
     if request.method == "POST":
-        print(request.POST)
         http_res = request.POST.getlist("ans[]")
         
         resp = HttpResponse(request)
