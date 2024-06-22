@@ -80,6 +80,7 @@
 
                             if (ans !== user_ans) {
                                 $("#btn-{{forloop.parentloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
+                                $("#q-{{forloop.parentloop.counter}}").addClass("incorrect-q");
                             }
                         </script>
                         {% endfor %}
@@ -146,6 +147,7 @@
                                     `<p class="ans-ipt" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + user_ans + `</p>`
                                 );
                                 $("#btn-{{forloop.counter}}").removeClass("btn-correct").addClass("btn-incorrect");
+                                $("#q-{{forloop.counter}}").addClass("incorrect-q");
                             }
                             $(ans_box).append(
                                 `<p class="ans-ipt answer-correct" id="q-{{ forloop.counter }}" data-target="btn-{{ forloop.counter }}">` + ans + `</p>`

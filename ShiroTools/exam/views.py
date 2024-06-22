@@ -1,8 +1,11 @@
 from django.shortcuts import render, HttpResponse, redirect
+from django.http.response import JsonResponse
 import json
 import os
 from libs.utils import createRecents
-from . import utils
+
+from exam.utils import utils
+
 
 QuestionsData = list[dict[
     "type": str,
@@ -12,11 +15,13 @@ QuestionsData = list[dict[
 ]]
 
 def index(request):
+    bank_data = utils.load_bank()
+    print(bank_data)
+    # return JsonResponse(bank_data, safe=False)
     return createRecents(request, "exam.html", "Shiro's Exam", "/exam")
 
-def question(request, qid="test"):
-    res = read_question(qid)
-    questions = res["questions"]
+def question(request, qid="52dd48f50328411aafca44b83c5bf907"):
+    questions = utils.load_bank(qid)
     return render(
         request,
         "question.html",
@@ -25,22 +30,7 @@ def question(request, qid="test"):
         }
     )
 
-def read_question(qid: str) -> QuestionsData:
-    path = f"static/exam/questions/{qid}.json"
-    if os.path.exists(path):
-        with open(path, "r", encoding="utf-8") as jfile:
-            jdata = json.load(jfile)
-            
-            description = jdata["description"]
-            name = jdata["name"]
-            questions = jdata["questions"]
-            print(questions)
-            answers = [question["answer"] for question in questions]
-            
-            return {"name": name, "description": description, "questions": questions, "answers": answers}
-    return None
-
-def submit_answers(request, qid="test"):
+def submit_answers(request, qid="52dd48f50328411aafca44b83c5bf907"):
     if request.method == "POST":
         print(request.POST)
         http_res = request.POST.getlist("ans[]")
@@ -49,12 +39,11 @@ def submit_answers(request, qid="test"):
         resp.set_cookie("user_ans", json.dumps(http_res))
         return resp
 
-def check_answers(request, qid="test"):
+def check_answers(request, qid="52dd48f50328411aafca44b83c5bf907"):
     if request.COOKIES.get("user_ans"):
         http_res = json.loads(request.COOKIES.get("user_ans"))
-        res = read_question(qid)
-        questions_res = res["questions"]
-        answer_res = res["answers"]
+        questions_res = utils.load_bank(qid)
+        answer_res = [q["answer"] for q in questions_res]
         
         total = len(questions_res)
         ret_ans = [False]*total
