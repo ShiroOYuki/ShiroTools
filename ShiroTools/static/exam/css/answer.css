@@ -21,6 +21,14 @@
     border-color: rgb(0,170,144);
 }
 
+.btn-correct:hover {
+    background-color: rgb(15, 234, 201);
+}
+
+.btn-incorrect:hover {
+    background-color: rgb(255, 77, 77);
+}
+
 .incorrect {
     /* background: linear-gradient(90deg, rgba(81,168,221,1) 1%, rgb(217, 3, 3) 35%); */
     background-color: rgb(217, 3, 3);
