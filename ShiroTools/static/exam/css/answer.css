@@ -91,3 +91,11 @@
     justify-content: center;
     border: 0px;
 }
+
+.empty {
+    background-color: #212121;
+}
+
+.incorrect-q {
+    background-color: rgb(201, 30, 30);
+}
