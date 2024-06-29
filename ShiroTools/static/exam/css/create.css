@@ -1,0 +1,139 @@
+.page-container {
+    justify-content: center;
+}
+
+.questions-container {
+    width: 50%;
+    height: 100%;
+}
+
+/* question head */
+
+.question-title, .answer-ipt {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    padding-left: 5px;
+    padding-bottom: 2px;
+    resize: none;
+    overflow: hidden;
+    white-space: normal !important;
+}
+
+.question-title[contentEditable=true]:empty:not(:focus):before {
+    content: "Question...";
+    color: gray;
+}
+
+.question-title:focus {
+    border-color: white;
+}
+
+.question-box {
+    background-color: rgb(33, 33, 33);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.question-head {
+    display: flex;
+    gap: 10px;
+}
+
+.question-title {
+    width: 100%;
+}
+
+/* dropdown box */
+
+.dropdown-selected {
+    display: flex;
+    align-items: center;
+    z-index: 102;
+}
+
+.dropdown-icon {
+    display: flex;
+    align-items: center;
+    transition: rotate 0.2s;
+}
+
+.dropdown-icon svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.dropdown-box * {
+    user-select: none;
+}
+
+.dropdown-box.show > .dropdown-items > .dropdown-cols {
+    background-color: rgb(33, 33, 33);
+    box-shadow: 0px 0px 0px 15px rgb(33, 33, 33);
+    z-index: 101;
+    border-radius: 0px 0px 15px 15px;
+}
+
+.dropdown-box.hide .dropdown-icon {
+    rotate: 0deg;
+}
+
+.dropdown-box.show .dropdown-icon {
+    rotate: 90deg;
+}
+
+.dropdown-box {
+    min-width: max-content;
+}
+
+.dropdown-box.hide .dropdown-items {
+    visibility: hidden;
+    display: none;
+}
+
+.dropdown-box.show .dropdown-items {
+    visibility: visible;
+    display: flex;
+}
+
+.dropdown-items {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+.dropdown-cols {
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid gray;
+    position: absolute;
+}
+
+.dropdown-item {
+    padding: 0px;
+    position: relative;
+    text-align: end;
+}
+
+.dropdown-item p {
+    color: rgb(200, 200, 200);
+}
+
+.dropdown-item:hover p {
+    color: white;
+}
+
+/* question body */
+
+.question-body {
+    z-index: 1 !important;
+}
+
+.answer-ipt[contentEditable=true]:empty:not(:focus):before {
+    content: "Answer...";
+    color: gray;
+}

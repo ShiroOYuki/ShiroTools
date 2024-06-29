@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.http.response import JsonResponse
+from django.http.request import HttpRequest
 import json
-import os
 from libs.utils import createRecents
 
 from exam.utils import utils
@@ -14,11 +14,15 @@ QuestionsData = list[dict[
     "answer": str | list[str]
 ]]
 
+# ---------------------- exam homepage ----------------------
+
 def index(request):
     bank_data = utils.load_bank()
     print(bank_data)
     # return JsonResponse(bank_data, safe=False)
     return createRecents(request, "exam.html", "Shiro's Exam", "/exam")
+
+# ---------------------- question page ----------------------
 
 def question(request, qid="52dd48f50328411aafca44b83c5bf907"):
     questions = utils.load_bank(qid)
@@ -37,6 +41,8 @@ def submit_answers(request, qid="52dd48f50328411aafca44b83c5bf907"):
         resp = HttpResponse(request)
         resp.set_cookie("user_ans", json.dumps(http_res))
         return resp
+
+# ---------------------- answer page ----------------------
 
 def check_answers(request, qid="52dd48f50328411aafca44b83c5bf907"):
     if request.COOKIES.get("user_ans"):
@@ -69,47 +75,7 @@ def check_answers(request, qid="52dd48f50328411aafca44b83c5bf907"):
             }
         )
 
+# ---------------------- create page ----------------------
 
-
-# def pair_ans(request, qid="test"):
-#     res = read_question(qid)
-#     answer = res.answers
-#     if request.method == "POST":
-#         user_ans = request.POST.getlist("ans[]")
-#         if answer:
-#             correct = 0
-#             for i in range(len(answer)):
-#                 if answer[i] == user_ans[i]:
-#                     correct += 1
-#             print(correct)
-#             print(answer)
-#         print(user_ans)
-    
-#     resp = HttpResponse(request)
-#     resp.set_cookie("user_ans", json.dumps(user_ans))
-#     return resp
-
-# def ans(request, qid="test"):
-#     if request.COOKIES.get("user_ans"):
-#         res = read_question(qid)
-#         questions, answer = res[2], res[3]
-#         user_ans = json.loads(request.COOKIES["user_ans"])
-#         data = []
-#         tot = len(questions)
-#         correct = 0
-#         for i in range(len(questions)):
-#             data.append({
-#                 "question": questions[i],
-#                 "answer": answer[i],
-#                 "user_ans": user_ans[i]
-#             })
-#             if answer[i] == user_ans[i]:
-#                 correct += 1
-#         return render(
-#             request,
-#             "answer.html",
-#             context = {
-#                 "data": data,
-#                 "score": str(correct) + "/" + str(tot)
-#             }
-#         )
+def creating_page(request: HttpRequest):
+    return render(request, "create.html")

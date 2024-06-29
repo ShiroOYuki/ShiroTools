@@ -1,0 +1,46 @@
+{% extends "template.html" %}
+
+{% block import_css %}
+<link rel="stylesheet" href="/static/common/css/box.css">
+<link rel="stylesheet" href="/static/exam/css/create.css">
+{% endblock %}
+
+{% block import_js %}
+<script src="/static/exam/js/create.js"></script>
+{% endblock %}
+
+{% block body %}
+{% csrf_token %}
+<div class="questions-container">
+    <div class="questions">
+        <div class="question-box">
+            <div class="question-head">
+                <div class="question-title" contenteditable="true"></div>
+                <div class="dropdown-box type-selector show">
+                    <div class="dropdown-selected">
+                        <i class="dropdown-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>                      
+                        </i>
+                        <p class="selected-item">單選題</p>
+                    </div>
+                    <div class="dropdown-items">
+                        <div class="dropdown-cols">
+                            <ul class="dropdown-item single"><p>單選題</p></ul>
+                            <ul class="dropdown-item multiple"><p>複選題</p></ul>
+                            <ul class="dropdown-item short-answer"><p>簡答題</p></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-body">
+                <div class="answer-ipt" contenteditable="true"></div>
+            </div>
+        </div>
+    </div>
+    <div class="add-new">
+
+    </div>
+</div>
+{% endblock %}
