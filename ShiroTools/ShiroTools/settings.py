@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "dashboard",
     "line_stickers",
     "exam",
-    "pymusic",
+    # "pymusic",
 ]
 
 MIDDLEWARE = [
